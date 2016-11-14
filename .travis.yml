@@ -2,5 +2,14 @@ language: csharp
 mono:
   - latest
 
+node_js:
+  - "6.1"
+
 script:
   - ./build.sh
+  - npm install -g jake
+  - git clone --depth=1 --branch=master https://github.com/Microsoft/TypeScript.git TypeScript
+  - cp generated\* TypeScript\src\lib
+  - cd TypeScript
+  - npm install
+  - jake runtests-parallel
